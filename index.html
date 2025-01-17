@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kỷ niệm 1 năm</title>
+    <title>Kỷ niệm năm đầu</title>
     <style>
         body {
-            background-color: #f5f5f5;
-            font-family: 'Arial', sans-serif;
+            background-color: black;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.5em;
             margin: 0;
             padding: 0;
             display: flex;
@@ -15,6 +16,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            color: red;
         }
         .container {
             background-color: #fff;
@@ -25,19 +27,19 @@
             text-align: center;
         }
         .title {
-            font-size: 2em;
-            color: #e91e63;
+            font-size: 3em;
+            color: red;
             margin-bottom: 20px;
         }
         .message {
-            font-size: 1.2em;
-            color: #333;
+            font-size: 1.8em;
+            color: red;
             margin-bottom: 30px;
             white-space: pre-wrap;
         }
         .heart {
             font-size: 5em;
-            color: #e91e63;
+            color: red;
             animation: pulse 1s infinite;
             margin-bottom: 30px;
         }
@@ -47,25 +49,22 @@
             gap: 10px;
             justify-content: center;
             margin-bottom: 30px;
+            position: relative;
         }
         .gallery img {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border-radius: 10px;
             opacity: 0;
-            transition: opacity 1s;
+            transition: opacity 1s, transform 0.5s;
+            position: absolute;
         }
-        .videos {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-        }
-        .videos video {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 10px;
+        .animated-heart {
+            position: absolute;
+            color: red;
+            font-size: 2em;
+            animation: moveHeart 2s infinite;
         }
         @keyframes pulse {
             0% {
@@ -78,11 +77,22 @@
                 transform: scale(1);
             }
         }
+        @keyframes moveHeart {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(50px, -50px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Kỷ niệm 1 năm</div>
+        <div class="title">Kỷ niệm năm đầu</div>
         <div class="message" id="message"></div>
         <div class="heart">❤️</div>
         <div class="gallery">
@@ -100,9 +110,10 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const messageText = "Anh muốn gửi đến em tình yêu sâu sắc và lòng biết ơn vì đã luôn bên cạnh anh trong suốt một năm qua. Chúc mừng kỷ niệm của chúng ta!";
+            const messageText = "Chào em, thiên thần áo trắng ngày nào, thời gian thắm thoát trôi qua, nay đã sắp Tết rồi. Thời gian bên cạnh em, anh đã rất hạnh phúc. Thời gian sẽ dần minh chứng cho tình cảm đôi ta. Hẹn em một ngày sắp tới mình bước lên lễ đường. Hẹn em một ngày mình đi cùng nhau đến những nơi mình muốn. Chúc mừng 1165 ngày gặp nhau, chúc mừng 489 ngày chính thức tìm hiểu, chúc mừng 338 ngày yêu nhau, chúc em một ngày tuyệt vời <3";
             const messageElement = document.getElementById("message");
             const images = document.querySelectorAll(".gallery img");
+            const gallery = document.querySelector(".gallery");
             let charIndex = 0;
             let imageIndex = 0;
 
@@ -119,11 +130,23 @@
             function displayImages() {
                 if (imageIndex < images.length) {
                     images[imageIndex].style.opacity = 1;
+                    images[imageIndex].style.transform = `translate(${Math.random() * 100}px, ${Math.random() * 100}px)`;
                     imageIndex++;
                     setTimeout(displayImages, 500);
                 }
             }
 
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('animated-heart');
+                heart.innerHTML = '❤️';
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.style.left = `${Math.random() * 100}%`;
+                gallery.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+
+            setInterval(createHeart, 1000);
             typeText();
         });
     </script>
