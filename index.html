@@ -8,7 +8,7 @@
         body {
             background-color: black;
             font-family: 'Times New Roman', serif;
-            font-size: 1.2em;
+            font-size: 1em;
             margin: 0;
             padding: 0;
             display: flex;
@@ -27,12 +27,12 @@
             text-align: center;
         }
         .title {
-            font-size: 2.5em;
+            font-size: 2em;
             color: red;
             margin-bottom: 20px;
         }
         .message {
-            font-size: 1.5em;
+            font-size: 1.2em;
             color: red;
             margin-bottom: 30px;
             white-space: pre-wrap;
@@ -50,6 +50,7 @@
             justify-content: center;
             margin-bottom: 30px;
             position: relative;
+            top: -50px; /* Move images higher */
         }
         .gallery img {
             width: 200px;
@@ -65,12 +66,6 @@
             color: red;
             font-size: 2em;
             animation: move 2s infinite;
-        }
-        .cat-kiss {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            font-size: 3em;
         }
         @keyframes pulse {
             0% {
@@ -102,19 +97,18 @@
         <div class="message" id="message"></div>
         <div class="heart">❤️</div>
         <div class="gallery">
-            <img src="anh1.jpg" alt="Ảnh 1">
-            <img src="anh2.jpg" alt="Ảnh 2">
-            <img src="anh3.jpg" alt="Ảnh 3">
             <img src="anh4.jpg" alt="Ảnh 4">
-            <img src="anh5.jpg" alt="Ảnh 5">
             <img src="anh6.jpg" alt="Ảnh 6">
+            <img src="anh5.jpg" alt="Ảnh 5">
+            <img src="anh3.jpg" alt="Ảnh 3">
+            <img src="anh2.jpg" alt="Ảnh 2">
+            <img src="anh11.jpg" alt="Ảnh 11">
             <img src="anh7.jpg" alt="Ảnh 7">
             <img src="anh8.jpg" alt="Ảnh 8">
-            <img src="anh9.jpg" alt="Ảnh 9">
             <img src="anh10.jpg" alt="Ảnh 10">
+            <img src="anh1.jpg" alt="Ảnh 1">
         </div>
         <div class="message" id="finalMessage" style="display:none;">Chúc em hạnh phúc ... bên anh hehehe</div>
-        <div class="cat-kiss">🐱💋🐱</div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -148,7 +142,7 @@
                         images[imageIndex].style.opacity = 0;
                         imageIndex++;
                         displayImages();
-                    }, 1000);
+                    }, 2000); // Adjusted to 2000ms for slower transition
                 } else {
                     finalMessageElement.style.display = 'block';
                     createHeartsAndStars();
