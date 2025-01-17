@@ -8,7 +8,7 @@
         body {
             background-color: black;
             font-family: 'Times New Roman', serif;
-            font-size: 1.5em;
+            font-size: 1.2em;
             margin: 0;
             padding: 0;
             display: flex;
@@ -27,12 +27,12 @@
             text-align: center;
         }
         .title {
-            font-size: 3em;
+            font-size: 2.5em;
             color: red;
             margin-bottom: 20px;
         }
         .message {
-            font-size: 1.8em;
+            font-size: 1.5em;
             color: red;
             margin-bottom: 30px;
             white-space: pre-wrap;
@@ -60,11 +60,17 @@
             transition: opacity 1s, transform 0.5s;
             position: absolute;
         }
-        .animated-heart {
+        .animated-heart, .animated-star {
             position: absolute;
             color: red;
             font-size: 2em;
-            animation: moveHeart 2s infinite;
+            animation: move 2s infinite;
+        }
+        .cat-kiss {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 3em;
         }
         @keyframes pulse {
             0% {
@@ -77,7 +83,7 @@
                 transform: scale(1);
             }
         }
-        @keyframes moveHeart {
+        @keyframes move {
             0% {
                 transform: translate(0, 0);
             }
@@ -107,11 +113,14 @@
             <img src="anh9.jpg" alt="Ảnh 9">
             <img src="anh10.jpg" alt="Ảnh 10">
         </div>
+        <div class="message" id="finalMessage" style="display:none;">Chúc em hạnh phúc ... bên anh hehehe</div>
+        <div class="cat-kiss">🐱💋🐱</div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const messageText = "Chào em, thiên thần áo trắng ngày nào, thời gian thắm thoát trôi qua, nay đã sắp Tết rồi. Thời gian bên cạnh em, anh đã rất hạnh phúc. Thời gian sẽ dần minh chứng cho tình cảm đôi ta. Hẹn em một ngày sắp tới mình bước lên lễ đường. Hẹn em một ngày mình đi cùng nhau đến những nơi mình muốn. Chúc mừng 1165 ngày gặp nhau, chúc mừng 489 ngày chính thức tìm hiểu, chúc mừng 338 ngày yêu nhau, chúc em một ngày tuyệt vời <3";
             const messageElement = document.getElementById("message");
+            const finalMessageElement = document.getElementById("finalMessage");
             const images = document.querySelectorAll(".gallery img");
             const gallery = document.querySelector(".gallery");
             let charIndex = 0;
@@ -123,17 +132,32 @@
                     charIndex++;
                     setTimeout(typeText, 50);
                 } else {
-                    displayImages();
+                    setTimeout(hideMessage, 5000);
                 }
+            }
+
+            function hideMessage() {
+                messageElement.style.display = 'none';
+                displayImages();
             }
 
             function displayImages() {
                 if (imageIndex < images.length) {
                     images[imageIndex].style.opacity = 1;
-                    images[imageIndex].style.transform = `translate(${Math.random() * 100}px, ${Math.random() * 100}px)`;
-                    imageIndex++;
-                    setTimeout(displayImages, 500);
+                    setTimeout(() => {
+                        images[imageIndex].style.opacity = 0;
+                        imageIndex++;
+                        displayImages();
+                    }, 1000);
+                } else {
+                    finalMessageElement.style.display = 'block';
+                    createHeartsAndStars();
                 }
+            }
+
+            function createHeartsAndStars() {
+                setInterval(createHeart, 1000);
+                setInterval(createStar, 1500);
             }
 
             function createHeart() {
@@ -146,7 +170,16 @@
                 setTimeout(() => heart.remove(), 2000);
             }
 
-            setInterval(createHeart, 1000);
+            function createStar() {
+                const star = document.createElement('div');
+                star.classList.add('animated-star');
+                star.innerHTML = '⭐';
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                gallery.appendChild(star);
+                setTimeout(() => star.remove(), 2000);
+            }
+
             typeText();
         });
     </script>
